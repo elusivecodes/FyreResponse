@@ -56,7 +56,7 @@ $code = $response->getStatusCode();
 
 Set the status code.
 
-- `$code` is a number indicating the status code.
+- `$code` is a number representing the status code.
 
 ```php
 $response->setStatusCode($code);
