@@ -1,6 +1,6 @@
 {
     "name": "fyre/response",
-    "description": "A response library.",
+    "description": "A HTTP response library.",
     "type": "library",
     "license": "MIT",
     "authors": [
