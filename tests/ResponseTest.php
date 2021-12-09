@@ -14,7 +14,7 @@ final class ResponseTest extends TestCase
 
     protected Response $response;
 
-    public function testResponseMessage(): void
+    public function testMessage(): void
     {
         $this->assertInstanceOf(
             Message::class,
@@ -22,7 +22,7 @@ final class ResponseTest extends TestCase
         );
     }
 
-    public function testResponseGetReason(): void
+    public function testGetReason(): void
     {
         $this->response->setStatusCode(400);
 
@@ -32,7 +32,7 @@ final class ResponseTest extends TestCase
         );
     }
 
-    public function testResponseGetStatusCode(): void
+    public function testGetStatusCode(): void
     {
         $this->assertEquals(
             200,
@@ -40,7 +40,7 @@ final class ResponseTest extends TestCase
         );
     }
 
-    public function testResponseSetStatusCode(): void
+    public function testSetStatusCode(): void
     {
         $this->assertEquals(
             $this->response,
@@ -53,7 +53,7 @@ final class ResponseTest extends TestCase
         );
     }
 
-    public function testResponseSetStatusCodeInvalid(): void
+    public function testSetStatusCodeInvalid(): void
     {
         $this->expectException(ResponseException::class);
 
