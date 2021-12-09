@@ -21,7 +21,7 @@ composer require fyre/response
 In PHP:
 
 ```php
-use Fyre\Response\Response;
+use Fyre\Http\Response;
 ```
 
 

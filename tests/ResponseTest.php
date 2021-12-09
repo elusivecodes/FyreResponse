@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use
-    Fyre\Message\Message,
-    Fyre\Response\Exceptions\ResponseException,
-    Fyre\Response\Response,
+    Fyre\Http\Message,
+    Fyre\Http\Exceptions\ResponseException,
+    Fyre\Http\Response,
     PHPUnit\Framework\TestCase;
 
 final class ResponseTest extends TestCase
