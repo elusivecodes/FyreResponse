@@ -5,7 +5,7 @@ namespace Fyre\Http;
 
 use
     Fyre\Http\Message,
-    Fyre\Http\Exceptions\ResponseException;
+    InvalidArgumentException;
 
 use function
     array_key_exists;
@@ -113,11 +113,12 @@ class Response extends Message
      * Set the status code.
      * @param int $code The status code.
      * @return Response The Response.
+     * @throws InvalidArgumentException if the status code is invalid.
      */
     public function setStatusCode(int $code): self
     {
         if (!array_key_exists($code, static::STATUS_CODES)) {
-            throw ResponseException::forInvalidStatusCode($code);
+            throw new InvalidArgumentException('Invalid Status Code: '.$code);
         }
 
         $this->statusCode = $code;

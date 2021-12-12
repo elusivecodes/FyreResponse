@@ -5,8 +5,8 @@ namespace Tests;
 
 use
     Fyre\Http\Message,
-    Fyre\Http\Exceptions\ResponseException,
     Fyre\Http\Response,
+    InvalidArgumentException,
     PHPUnit\Framework\TestCase;
 
 final class ResponseTest extends TestCase
@@ -55,7 +55,7 @@ final class ResponseTest extends TestCase
 
     public function testSetStatusCodeInvalid(): void
     {
-        $this->expectException(ResponseException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->response->setStatusCode(600);
     }
