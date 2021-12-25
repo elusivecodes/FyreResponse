@@ -34,7 +34,7 @@ $response = new Response();
 
 ## Methods
 
-This class extends the [*FyreMessage*](https://github.com/elusivecodes/FyreMessage) class.
+This class extends the [*Message*](https://github.com/elusivecodes/FyreMessage) class.
 
 **Get Reason**
 
