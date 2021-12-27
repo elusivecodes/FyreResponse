@@ -60,7 +60,7 @@ final class ResponseTest extends TestCase
         $this->response->setStatusCode(600);
     }
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->response = new Response();
     }
