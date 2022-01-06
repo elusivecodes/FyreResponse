@@ -115,7 +115,7 @@ class Response extends Message
      * @return Response The Response.
      * @throws InvalidArgumentException if the status code is invalid.
      */
-    public function setStatusCode(int $code): self
+    public function setStatusCode(int $code): static
     {
         if (!array_key_exists($code, static::STATUS_CODES)) {
             throw new InvalidArgumentException('Invalid Status Code: '.$code);
