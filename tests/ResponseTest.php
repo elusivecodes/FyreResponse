@@ -26,7 +26,7 @@ final class ResponseTest extends TestCase
     {
         $this->response->setStatusCode(400);
 
-        $this->assertEquals(
+        $this->assertSame(
             'Bad Request',
             $this->response->getReason()
         );
@@ -34,7 +34,7 @@ final class ResponseTest extends TestCase
 
     public function testGetStatusCode(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             200,
             $this->response->getStatusCode()
         );
@@ -42,12 +42,12 @@ final class ResponseTest extends TestCase
 
     public function testSetStatusCode(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->response,
             $this->response->setStatusCode(400)
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             400,
             $this->response->getStatusCode()
         );
