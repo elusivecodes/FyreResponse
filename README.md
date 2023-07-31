@@ -1,6 +1,6 @@
 # FyreResponse
 
-**FyreResponse** is a free, HTTP response library for *PHP*.
+**FyreResponse** is a free, open-source immutable HTTP response library for *PHP*.
 
 
 ## Table Of Contents
@@ -59,5 +59,5 @@ Set the status code.
 - `$code` is a number representing the status code.
 
 ```php
-$response->setStatusCode($code);
+$newResponse = $response->setStatusCode($code);
 ```

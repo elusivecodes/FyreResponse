@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace Fyre\Http;
 
-use
-    Fyre\Http\Message,
-    InvalidArgumentException;
+use InvalidArgumentException;
 
-use function
-    array_key_exists;
+use function array_key_exists;
 
 /**
  * Response
@@ -112,8 +109,8 @@ class Response extends Message
     /**
      * Set the status code.
      * @param int $code The status code.
-     * @return Response The Response.
-     * @throws InvalidArgumentException if the status code is invalid.
+     * @return Response A new Response.
+     * @throws InvalidArgumentException if the status code is not valid.
      */
     public function setStatusCode(int $code): static
     {
@@ -121,9 +118,11 @@ class Response extends Message
             throw new InvalidArgumentException('Invalid Status Code: '.$code);
         }
 
-        $this->statusCode = $code;
+        $temp = clone $this;
 
-        return $this;
+        $temp->statusCode = $code;
+
+        return $temp;
     }
 
 }

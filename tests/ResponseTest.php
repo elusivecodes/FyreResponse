@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\Http\Message,
-    Fyre\Http\Response,
-    InvalidArgumentException,
-    PHPUnit\Framework\TestCase;
+use Fyre\Http\Message;
+use Fyre\Http\Response;
+use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 final class ResponseTest extends TestCase
 {
@@ -16,40 +15,48 @@ final class ResponseTest extends TestCase
 
     public function testMessage(): void
     {
+        $response = new Response();
+
         $this->assertInstanceOf(
             Message::class,
-            $this->response
+            $response
         );
     }
 
     public function testGetReason(): void
     {
-        $this->response->setStatusCode(400);
+        $response1 = new Response();
+        $response2 = $response1->setStatusCode(400);
 
         $this->assertSame(
             'Bad Request',
-            $this->response->getReason()
+            $response2->getReason()
         );
     }
 
     public function testGetStatusCode(): void
     {
+        $response = new Response();
+
         $this->assertSame(
             200,
-            $this->response->getStatusCode()
+            $response->getStatusCode()
         );
     }
 
     public function testSetStatusCode(): void
     {
+        $response1 = new Response();
+        $response2 = $response1->setStatusCode(400);
+
         $this->assertSame(
-            $this->response,
-            $this->response->setStatusCode(400)
+            200,
+            $response1->getStatusCode()
         );
 
         $this->assertSame(
             400,
-            $this->response->getStatusCode()
+            $response2->getStatusCode()
         );
     }
 
@@ -57,12 +64,8 @@ final class ResponseTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->response->setStatusCode(600);
-    }
-
-    protected function setUp(): void
-    {
-        $this->response = new Response();
+        $response = new Response();
+        $response->setStatusCode(600);
     }
 
 }
