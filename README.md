@@ -27,8 +27,14 @@ use Fyre\Http\Response;
 
 ## Response Creation
 
+- `$options` is an array containing the message options.
+    - `body` is a string representing the message body, and will default to "".
+    - `headers` is an array containing headers to set, and will default to *[]*.
+    - `protocolVersion` is a string representing the protocol version, and will default to "*1.1*".
+    - `statusCode` is a number representing the status code, and will default to *200*.
+
 ```php
-$response = new Response();
+$response = new Response($options);
 ```
 
 

@@ -23,6 +23,40 @@ final class ResponseTest extends TestCase
         );
     }
 
+    public function testConstructor(): void
+    {
+        $response = new Response([
+            'body' => 'test',
+            'headers' => [
+                'test' => 'value'
+            ],
+            'protocolVersion' => '2.0',
+            'statusCode' => 400
+        ]);
+
+        $this->assertSame(
+            'test',
+            $response->getBody()
+        );
+
+        $this->assertSame(
+            [
+                'value'
+            ],
+            $response->getHeader('test')->getValue()
+        );
+
+        $this->assertSame(
+            '2.0',
+            $response->getProtocolVersion()
+        );
+
+        $this->assertSame(
+            400,
+            $response->getStatusCode()
+        );
+    }
+
     public function testGetReason(): void
     {
         $response1 = new Response();

@@ -89,6 +89,19 @@ class Response extends Message
     protected int $statusCode = 200;
 
     /**
+     * New Response constructor.
+     * @param array $options The response options.
+     */
+    public function __construct(array $options = [])
+    {
+        parent::__construct($options);
+
+        $options['statusCode'] ??= 200;
+
+        $this->statusCode = static::filterStatusCode($options['statusCode']);
+    }
+
+    /**
      * Get the response reason phrase.
      * @return string The response reason phrase.
      */
@@ -110,19 +123,29 @@ class Response extends Message
      * Set the status code.
      * @param int $code The status code.
      * @return Response A new Response.
-     * @throws InvalidArgumentException if the status code is not valid.
      */
     public function setStatusCode(int $code): static
     {
-        if (!array_key_exists($code, static::STATUS_CODES)) {
-            throw new InvalidArgumentException('Invalid Status Code: '.$code);
-        }
-
         $temp = clone $this;
 
-        $temp->statusCode = $code;
+        $temp->statusCode = static::filterStatusCode($code);
 
         return $temp;
+    }
+
+    /**
+     * Filter the status code.
+     * @param int $code The status code.
+     * @return int The filtered status code.
+     * @throws InvalidArgumentException if the status code is not valid.
+     */
+    protected static function filterStatusCode(int $code): int
+    {
+        if (!array_key_exists($code, static::STATUS_CODES)) {
+            throw new InvalidArgumentException('Invalid status code: '.$code);
+        }
+
+        return $code;
     }
 
 }
