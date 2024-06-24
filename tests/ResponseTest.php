@@ -10,18 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ResponseTest extends TestCase
 {
-
     protected Response $response;
-
-    public function testMessage(): void
-    {
-        $response = new Response();
-
-        $this->assertInstanceOf(
-            Message::class,
-            $response
-        );
-    }
 
     public function testConstructor(): void
     {
@@ -78,6 +67,16 @@ final class ResponseTest extends TestCase
         );
     }
 
+    public function testMessage(): void
+    {
+        $response = new Response();
+
+        $this->assertInstanceOf(
+            Message::class,
+            $response
+        );
+    }
+
     public function testSetStatusCode(): void
     {
         $response1 = new Response();
@@ -101,5 +100,4 @@ final class ResponseTest extends TestCase
         $response = new Response();
         $response->setStatusCode(600);
     }
-
 }

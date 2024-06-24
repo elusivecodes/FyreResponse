@@ -12,7 +12,6 @@ use function array_key_exists;
  */
 class Response extends Message
 {
-
     protected const STATUS_CODES = [
         // 1xx: Informational
         100 => 'Continue',
@@ -29,7 +28,7 @@ class Response extends Message
         206 => 'Partial Content',
         207 => 'Multi-Status',
         208 => 'Already Reported',
-        226 => 'IM Used', 
+        226 => 'IM Used',
         // 3xx: Redirection
         300 => 'Multiple Choices',
         301 => 'Moved Permanently',
@@ -147,5 +146,4 @@ class Response extends Message
 
         return $code;
     }
-
 }
