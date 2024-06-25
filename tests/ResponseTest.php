@@ -17,10 +17,10 @@ final class ResponseTest extends TestCase
         $response = new Response([
             'body' => 'test',
             'headers' => [
-                'test' => 'value'
+                'test' => 'value',
             ],
             'protocolVersion' => '2.0',
-            'statusCode' => 400
+            'statusCode' => 400,
         ]);
 
         $this->assertSame(
@@ -30,7 +30,7 @@ final class ResponseTest extends TestCase
 
         $this->assertSame(
             [
-                'value'
+                'value',
             ],
             $response->getHeader('test')->getValue()
         );

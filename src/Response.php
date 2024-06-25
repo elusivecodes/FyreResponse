@@ -82,13 +82,14 @@ class Response extends Message
         508 => 'Loop Detected',
         510 => 'Not Extended',
         511 => 'Network Authentication Required',
-        599 => 'Network Connect Timeout Error'
+        599 => 'Network Connect Timeout Error',
     ];
 
     protected int $statusCode = 200;
 
     /**
      * New Response constructor.
+     *
      * @param array $options The response options.
      */
     public function __construct(array $options = [])
@@ -102,6 +103,7 @@ class Response extends Message
 
     /**
      * Get the response reason phrase.
+     *
      * @return string The response reason phrase.
      */
     public function getReason(): string
@@ -111,6 +113,7 @@ class Response extends Message
 
     /**
      * Get the status code.
+     *
      * @return int The status code.
      */
     public function getStatusCode(): int
@@ -120,6 +123,7 @@ class Response extends Message
 
     /**
      * Set the status code.
+     *
      * @param int $code The status code.
      * @return Response A new Response.
      */
@@ -134,8 +138,10 @@ class Response extends Message
 
     /**
      * Filter the status code.
+     *
      * @param int $code The status code.
      * @return int The filtered status code.
+     *
      * @throws InvalidArgumentException if the status code is not valid.
      */
     protected static function filterStatusCode(int $code): int
