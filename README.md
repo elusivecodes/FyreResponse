@@ -5,7 +5,7 @@
 
 ## Table Of Contents
 - [Installation](#installation)
-- [Response Creation](#response-creation)
+- [Basic Usage](#basic-usage)
 - [Methods](#methods)
 
 
@@ -25,7 +25,7 @@ use Fyre\Http\Response;
 ```
 
 
-## Response Creation
+## Basic Usage
 
 - `$options` is an array containing the message options.
     - `body` is a string representing the message body, and will default to "".
