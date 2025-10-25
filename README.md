@@ -32,22 +32,25 @@ use Fyre\Http\Response;
     - `headers` is an array containing headers to set, and will default to *[]*.
     - `protocolVersion` is a string representing the protocol version, and will default to "*1.1*".
     - `statusCode` is a number representing the status code, and will default to *200*.
+    - `reasonPhrase` is a string representing the reason phrase, and will default to "".
 
 ```php
 $response = new Response($options);
 ```
+
+If a `reasonPhrase` is not provided, the default reason for the status code will be used instead.
 
 
 ## Methods
 
 This class extends the [*Message*](https://github.com/elusivecodes/FyreMessage) class.
 
-**Get Reason**
+**Get Reason Phrase**
 
 Get the response reason phrase.
 
 ```php
-$reason = $response->getReason();
+$reason = $response->getReasonPhrase();
 ```
 
 **Get Status Code**
@@ -58,12 +61,15 @@ Get the status code.
 $code = $response->getStatusCode();
 ```
 
-**Set Status Code**
+**With Status *
 
 Set the status code.
 
 - `$code` is a number representing the status code.
+- `$reasonPhrase` is a string representing the reason phrase, and will default to "".
 
 ```php
-$newResponse = $response->setStatusCode($code);
+$newResponse = $response->withStatus($code, $reasonPhrase);
 ```
+
+If a `$reasonPhrase` is not provided, the default reason for the status code will be used instead.

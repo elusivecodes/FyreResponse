@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Fyre\Http\Exceptions\ResponseException;
 use Fyre\Http\Message;
 use Fyre\Http\Response;
-use InvalidArgumentException;
+use Fyre\Http\Stream;
 use PHPUnit\Framework\TestCase;
 
 final class ResponseTest extends TestCase
@@ -21,18 +22,26 @@ final class ResponseTest extends TestCase
             ],
             'protocolVersion' => '2.0',
             'statusCode' => 400,
+            'reasonPhrase' => 'Something went wrong',
         ]);
+
+        $body = $response->getBody();
+
+        $this->assertInstanceOf(
+            Stream::class,
+            $body
+        );
 
         $this->assertSame(
             'test',
-            $response->getBody()
+            $body->getContents()
         );
 
         $this->assertSame(
             [
                 'value',
             ],
-            $response->getHeader('test')->getValue()
+            $response->getHeader('test')
         );
 
         $this->assertSame(
@@ -44,16 +53,21 @@ final class ResponseTest extends TestCase
             400,
             $response->getStatusCode()
         );
+
+        $this->assertSame(
+            'Something went wrong',
+            $response->getReasonPhrase()
+        );
     }
 
-    public function testGetReason(): void
+    public function testGetReasonPhrase(): void
     {
         $response1 = new Response();
-        $response2 = $response1->setStatusCode(400);
+        $response2 = $response1->withStatus(400);
 
         $this->assertSame(
             'Bad Request',
-            $response2->getReason()
+            $response2->getReasonPhrase()
         );
     }
 
@@ -77,27 +91,32 @@ final class ResponseTest extends TestCase
         );
     }
 
-    public function testSetStatusCode(): void
+    public function testWithStatus(): void
     {
         $response1 = new Response();
-        $response2 = $response1->setStatusCode(400);
+        $response2 = $response1->withStatus(400, 'Something went wrong');
 
-        $this->assertSame(
-            200,
-            $response1->getStatusCode()
+        $this->assertNotSame(
+            $response1,
+            $response2
         );
 
         $this->assertSame(
             400,
             $response2->getStatusCode()
         );
+
+        $this->assertSame(
+            'Something went wrong',
+            $response2->getReasonPhrase()
+        );
     }
 
-    public function testSetStatusCodeInvalid(): void
+    public function testWithStatusInvalid(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(ResponseException::class);
 
         $response = new Response();
-        $response->setStatusCode(600);
+        $response->withStatus(600);
     }
 }

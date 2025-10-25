@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace Fyre\Http;
 
-use InvalidArgumentException;
-
-use function array_key_exists;
+use Fyre\Http\Exceptions\ResponseException;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Response
  */
-class Response extends Message
+class Response extends Message implements ResponseInterface
 {
     protected const STATUS_CODES = [
         // 1xx: Informational
@@ -85,7 +84,9 @@ class Response extends Message
         599 => 'Network Connect Timeout Error',
     ];
 
-    protected int $statusCode = 200;
+    protected string $reasonPhrase;
+
+    protected int $statusCode;
 
     /**
      * New Response constructor.
@@ -97,8 +98,10 @@ class Response extends Message
         parent::__construct($options);
 
         $options['statusCode'] ??= 200;
+        $options['reasonPhrase'] ??= '';
 
         $this->statusCode = static::filterStatusCode($options['statusCode']);
+        $this->reasonPhrase = $options['reasonPhrase'] ?: (static::STATUS_CODES[$this->statusCode] ?? '');
     }
 
     /**
@@ -106,9 +109,9 @@ class Response extends Message
      *
      * @return string The response reason phrase.
      */
-    public function getReason(): string
+    public function getReasonPhrase(): string
     {
-        return static::STATUS_CODES[$this->statusCode];
+        return $this->reasonPhrase;
     }
 
     /**
@@ -125,13 +128,15 @@ class Response extends Message
      * Set the status code.
      *
      * @param int $code The status code.
+     * @param string $reasonPhrase The reason phrase.
      * @return Response A new Response.
      */
-    public function setStatusCode(int $code): static
+    public function withStatus(int $code, string $reasonPhrase = ''): static
     {
         $temp = clone $this;
 
         $temp->statusCode = static::filterStatusCode($code);
+        $temp->reasonPhrase = $reasonPhrase ?: (static::STATUS_CODES[$temp->statusCode] ?? '');
 
         return $temp;
     }
@@ -142,12 +147,12 @@ class Response extends Message
      * @param int $code The status code.
      * @return int The filtered status code.
      *
-     * @throws InvalidArgumentException if the status code is not valid.
+     * @throws ResponseException if the status code is not valid.
      */
     protected static function filterStatusCode(int $code): int
     {
-        if (!array_key_exists($code, static::STATUS_CODES)) {
-            throw new InvalidArgumentException('Invalid status code: '.$code);
+        if ($code < 100 || $code > 599) {
+            throw ResponseException::forInvalidStatusCode($code);
         }
 
         return $code;
