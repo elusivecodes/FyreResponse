@@ -61,7 +61,7 @@ Get the status code.
 $code = $response->getStatusCode();
 ```
 
-**With Status *
+**With Status**
 
 Set the status code.
 
