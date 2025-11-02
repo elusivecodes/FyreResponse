@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Fyre\Http;
 
 use Fyre\Http\Exceptions\ResponseException;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -109,6 +110,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return string The response reason phrase.
      */
+    #[Override]
     public function getReasonPhrase(): string
     {
         return $this->reasonPhrase;
@@ -119,6 +121,7 @@ class Response extends Message implements ResponseInterface
      *
      * @return int The status code.
      */
+    #[Override]
     public function getStatusCode(): int
     {
         return $this->statusCode;
@@ -131,6 +134,7 @@ class Response extends Message implements ResponseInterface
      * @param string $reasonPhrase The reason phrase.
      * @return Response A new Response.
      */
+    #[Override]
     public function withStatus(int $code, string $reasonPhrase = ''): static
     {
         $temp = clone $this;
